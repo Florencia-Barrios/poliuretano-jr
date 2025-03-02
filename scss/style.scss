@@ -1,0 +1,730 @@
+// Variables
+$primary-color: #e67e22;
+$secondary-color: #d35400;
+$third-color: #222831;
+$background-color: #f8f9fa;
+$text-color: #333;
+$text-color-h1: #FFD369;
+$white: #fff;
+$gray-light: #EEEEEE;
+$gray-placeholder: #aaa;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin responsive($size) {
+    @media (max-width: $size) {
+        @content;
+    }
+}
+
+// 🎯 Mixin para reutilizar el diseño de las tarjetas (servicios)
+@mixin card-style {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px $third-color;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+
+// Reset y estilos generales
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    @include flex-column;
+}
+
+body {
+    background-color: $background-color;
+    color: $text-color;
+    line-height: 1.6;
+}
+
+main {
+    flex: 1;
+}
+
+// Encabezado
+header {
+    background-color: $white;
+    color: $text-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+
+    .logo h1 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
+
+// Menú
+nav {
+    ul {
+        list-style: none;
+        display: flex;
+
+        li {
+            margin-left: 20px;
+
+            a {
+                color: $text-color;
+                text-decoration: none;
+                font-weight: 600;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}
+
+// Botón hamburguesa
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: $text-color;
+    padding: 10px;
+}
+
+// Sección HERO
+.hero {
+    @include flex-center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('../img/hero.jpg') no-repeat center center/cover;
+    color: $white;
+    position: relative;
+    height: 500px;
+
+
+    .content {
+        @include flex-column;
+        justify-content: start;
+        max-width: 50%;
+        padding: 20px;
+        // background: rgba(0, 0, 0, 0.6);
+        border-radius: 8px;
+
+        h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: $text-color-h1;
+        }
+        h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: $white;
+            font-weight: 400;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .iconos i {
+            color: $text-color-h1; /* Color azul, cambiálo por el que quieras */
+            margin-right: 5px; /* Espaciado entre el icono y el texto */
+        }
+        
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+    }
+
+    > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    // Formulario
+    .form-container {
+        max-width: 500px;
+        background: $white;
+        color: $text-color;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-group {
+            flex: 1;
+            @include flex-column;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 0.2px solid $third-color;
+            border-radius: 5px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: $gray-placeholder;
+            font-style: italic;
+    
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: $primary-color;
+            color: $white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $secondary-color;
+            }
+        }
+    }
+
+}
+
+// Sobre nosotros
+.section {
+    padding: 50px 0;
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    .text-content {
+        flex: 1;
+        max-width: 50%;
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+
+            li {
+                font-size: 16px;
+                margin: 10px 0;
+                position: relative;
+                padding-left: 20px;
+
+                &::before {
+                    content: "✔";
+                    color: $secondary-color;
+                    font-weight: bold;
+                    position: absolute;
+                    left: 0;
+                }
+            }
+        }
+    }
+
+    .image-content {
+        flex: 1;
+        max-width: 50%;
+        text-align: right;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    }
+}
+
+// Servicios
+.section-servicios {
+    text-align: center;
+
+    .servicios-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 40px 0;
+    }
+
+    .servicio {
+        @include card-style;
+        height: 230px;
+
+        h3 {
+            font-size: 20px;
+            margin-top: 5px;
+            color: $third-color;
+        }
+
+        p {
+            font-size: 16px;
+            color: darken($third-color, 20%);
+        }
+    }
+
+    .servicio:nth-child(2) {
+        h3{
+            line-height: 22px;
+        }
+    }
+
+    /* 🎨 Estilos para los iconos SVG */
+    .icono {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            fill: $primary-color;
+        }
+    }
+}
+
+// Beneficios
+.section-beneficios {
+    background-color: $gray-light;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-height: 100%;
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .cards {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .card {
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 280px;
+        transition: all 0.3s ease-in-out;
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    
+        p {
+            font-size: 14px;
+        }
+    
+    }
+
+    // Colores de las tarjetas
+    .card:nth-child(1) {
+        background: $third-color;
+        color: $white;
+    }
+    .card:nth-child(2), .card:nth-child(4) {
+        background: $white;
+        color: $text-color;
+        border: 1px solid $text-color-h1;
+        &:hover {
+            background: $third-color;
+            color: $white;
+            border-color: $third-color;
+        }
+    }  
+    .card:nth-child(3) {
+        background: $text-color-h1;
+        color: $text-color;
+    }
+}
+
+// HUEMDAD
+.comfort-section {
+    background: url('../img/lady.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    padding: 80px 10%;
+    min-height: 500px;
+    color: #fff;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .content {
+        position: relative;
+        z-index: 2;
+        max-width: 500px;
+
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #ffd369;
+        }
+    }
+}
+
+// PREGUNTAS FRECUENTES
+.section-faq {
+    background: $gray-light;
+    padding: 50px 20px;
+    text-align: center;
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: $third-color;
+    }
+
+    p {
+        font-size: 18px;
+        color: darken($third-color, 20%);
+        max-width: 700px;
+        margin: 0 auto 20px;
+    }
+
+    details {
+        background: $third-color;
+        max-width: 700px;
+        margin: 10px auto;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        summary {
+            font-size: 18px;
+            font-weight: bold;
+            color: $text-color-h1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            &::marker {
+                font-size: 22px; // Hace que el marcador sea más visible
+            }
+        }
+
+        p {
+            font-size: 16px;
+            color: $white;
+            text-align: left;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+    }
+
+    // 📢 Botón de Contacto
+    // 🎨 Estilos del botón con ícono de WhatsApp
+    .btn-faq {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px; // Espacio entre el icono y el texto
+        padding: 12px 24px;
+        background: #25D366; // Color de WhatsApp
+        color: white;
+        font-size: 18px;
+        text-decoration: none;
+        border-radius: 10px;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background: darken(#25D366, 10%);
+        }
+
+        // 📌 Estilos del ícono de WhatsApp (SVG)
+        .icono-whatsapp {
+            width: 22px;
+            height: 22px;
+            fill: white;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
+
+
+
+
+
+// Responsive
+@include responsive(768px) {
+// Encabezado
+    header {
+        padding: 15px 20px;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    nav {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        background: $white;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+
+        ul {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            padding: 0;
+
+            &.active {
+                display: flex;
+            }
+
+            li {
+                text-align: center;
+                padding: 15px;
+                border-bottom: 1px solid $gray-light;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+// Seccion HERO
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+
+        .content {
+            max-width: 100%;
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .iconos {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+        
+                b {
+                    width: 100%;
+                    justify-content: center;
+                    text-align: center;
+                    display: flex;
+                }
+            }
+
+        }
+
+        .form-container {
+            max-width: 100%;
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    }
+
+    
+
+// Sobre nosotros
+    .section {
+        .container {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .text-content,
+        .image-content {
+            max-width: 90%;
+        }
+
+        .image-content {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        ul {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 90%;
+        }
+    }
+
+// Servicios
+    .section-servicios {
+        .servicio {
+            @include flex-column;
+            align-items: center;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 90%;
+            height: auto;
+        }
+    }
+
+// Sección Beneficios
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+// Seccio Humedad
+    .comfort-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 50px 5%;
+
+        .content {
+            max-width: 100%;
+        }
+    }
+
+// preguntas frecuentes
+.section-faq {
+    padding: 30px 15px;
+
+    details {
+        max-width: 100%;
+
+        summary{
+            font-size: 15px;
+            text-align: start;
+            line-height: 20px;
+        }
+    }
+
+    .btn-faq {
+        font-size: 16px;
+        padding: 10px 20px;
+        gap: 8px;
+
+        .icono-whatsapp {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Pie de Página */
+footer {
+    background-color: white;
+    color: #555;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+}
