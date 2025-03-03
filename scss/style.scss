@@ -300,6 +300,12 @@ nav {
 .section-servicios {
     text-align: center;
 
+    h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: $third-color;
+    }
+
     .servicios-container {
         display: flex;
         justify-content: center;
@@ -647,6 +653,14 @@ nav {
 
 // Servicios
     .section-servicios {
+        h2 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 16px;
+            padding: 0 20px;
+        }
+
         .servicio {
             @include flex-column;
             align-items: center;

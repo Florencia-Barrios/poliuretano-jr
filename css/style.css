@@ -221,6 +221,11 @@ nav ul li a:hover {
   text-align: center;
   /* 🎨 Estilos para los iconos SVG */
 }
+.section-servicios h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #222831;
+}
 .section-servicios .servicios-container {
   display: flex;
   justify-content: center;
@@ -507,6 +512,13 @@ nav ul li a:hover {
     text-align: left;
     margin: 0 auto;
     max-width: 90%;
+  }
+  .section-servicios h2 {
+    font-size: 24px;
+  }
+  .section-servicios p {
+    font-size: 16px;
+    padding: 0 20px;
   }
   .section-servicios .servicio {
     display: flex;
