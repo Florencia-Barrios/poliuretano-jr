@@ -12,6 +12,10 @@ html, body {
   flex-direction: column;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #f8f9fa;
   color: #333;
@@ -37,24 +41,23 @@ header .logo h1 {
   font-size: 24px;
   font-weight: bold;
 }
-
-nav ul {
+header nav ul {
   list-style: none;
   display: flex;
 }
-nav ul li {
+header nav ul li {
   margin-left: 20px;
+  text-align: center;
 }
-nav ul li a {
+header nav ul li a {
   color: #333;
   text-decoration: none;
   font-weight: 600;
 }
-nav ul li a:hover {
+header nav ul li a:hover {
   color: #e67e22;
 }
-
-.menu-toggle {
+header .menu-toggle {
   display: none;
   font-size: 28px;
   cursor: pointer;
@@ -254,7 +257,7 @@ nav ul li a:hover {
 }
 .section-servicios .servicio p {
   font-size: 16px;
-  color: black;
+  color: rgb(75.7831325301, 89.156626506, 109.2168674699);
 }
 .section-servicios .servicio:nth-child(2) h3 {
   line-height: 22px;
@@ -373,7 +376,7 @@ nav ul li a:hover {
 }
 .section-faq p {
   font-size: 18px;
-  color: black;
+  color: rgb(75.7831325301, 89.156626506, 109.2168674699);
   max-width: 700px;
   margin: 0 auto 20px;
 }
@@ -424,7 +427,7 @@ nav ul li a:hover {
   transition: background 0.3s ease;
 }
 .section-faq .btn-faq:hover {
-  background: rgb(29.3911290323, 167.6088709677, 81.0241935484);
+  background: rgb(75.4798387097, 223.5201612903, 130.7822580645);
 }
 .section-faq .btn-faq .icono-whatsapp {
   width: 22px;
@@ -437,35 +440,53 @@ nav ul li a:hover {
 @media (max-width: 768px) {
   header {
     padding: 15px 20px;
-  }
-  .menu-toggle {
-    display: block;
-  }
-  nav {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 100%;
-    background: #fff;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-  }
-  nav ul {
-    display: none;
     flex-direction: column;
+  }
+  header .contenedor-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  header .contenedor-header .menu-toggle {
+    display: block;
+    z-index: 1001;
+  }
+  header nav {
+    width: 100%;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+  }
+  header nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    opacity: 0;
   }
-  nav ul.active {
-    display: flex;
-  }
-  nav ul li {
+  header nav ul li {
+    width: 100%;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
+    margin-left: 0;
     border-bottom: 1px solid #EEEEEE;
   }
-  nav ul li:last-child {
+  header nav ul li:last-child {
     border-bottom: none;
+  }
+  header nav ul li a {
+    display: block;
+    width: 100%;
+  }
+  header nav.active ul {
+    max-height: 500px;
+    opacity: 1;
+    display: flex;
   }
   .hero {
     flex-direction: column;
