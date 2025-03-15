@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variables
 $primary-color: #e67e22;
 $secondary-color: #d35400;
@@ -56,6 +58,10 @@ html, body {
     @include flex-column;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: $background-color;
     color: $text-color;
@@ -82,38 +88,44 @@ header {
         font-size: 24px;
         font-weight: bold;
     }
-}
 
-// Menú
-nav {
-    ul {
-        list-style: none;
-        display: flex;
 
-        li {
-            margin-left: 20px;
+    // Menú
+    nav {
+        
+        ul {
+            list-style: none;
+            display: flex;
 
-            a {
-                color: $text-color;
-                text-decoration: none;
-                font-weight: 600;
+            li {
+                margin-left: 20px;
+                text-align: center;
 
-                &:hover {
-                    color: $primary-color;
+                a {
+                    color: $text-color;
+                    text-decoration: none;
+                    font-weight: 600;
+
+                    &:hover {
+                        color: $primary-color;
+                    }
                 }
             }
         }
     }
+
+    // Botón hamburguesa
+    .menu-toggle {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: $text-color;
+        padding: 10px;
+    }
+
 }
 
-// Botón hamburguesa
-.menu-toggle {
-    display: none;
-    font-size: 28px;
-    cursor: pointer;
-    color: $text-color;
-    padding: 10px;
-}
+
 
 // Sección HERO
 .hero {
@@ -327,7 +339,7 @@ nav {
 
         p {
             font-size: 16px;
-            color: darken($third-color, 20%);
+            color: color.adjust($third-color, $lightness:20%);
         }
     }
 
@@ -471,7 +483,7 @@ nav {
 
     p {
         font-size: 18px;
-        color: darken($third-color, 20%);
+        color: color.adjust($third-color, $lightness: 20%);
         max-width: 700px;
         margin: 0 auto 20px;
     }
@@ -530,7 +542,7 @@ nav {
         transition: background 0.3s ease;
 
         &:hover {
-            background: darken(#25D366, 10%);
+            background: color.adjust(#25D366, $lightness: 10%);
         }
 
         // 📌 Estilos del ícono de WhatsApp (SVG)
@@ -553,40 +565,66 @@ nav {
 // Encabezado
     header {
         padding: 15px 20px;
-    }
-    .menu-toggle {
-        display: block;
-    }
-    nav {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 100%;
-        background: $white;
-        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 999;
+        flex-direction: column;
 
-        ul {
-            display: none;
-            flex-direction: column;
+        .contenedor-header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
             width: 100%;
-            padding: 0;
 
-            &.active {
-                display: flex;
+            .menu-toggle {
+                display: block;
+                z-index: 1001; // Aseguramos que quede sobre el contenido
             }
+        }
 
-            li {
-                text-align: center;
-                padding: 15px;
-                border-bottom: 1px solid $gray-light;
-
-                &:last-child {
-                    border-bottom: none;
+        nav {
+            width: 100%;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease-in-out; // Suaviza la apertura del menú
+            
+            ul {
+                display: flex;
+                flex-direction: column; // Asegura que los elementos estén en columna
+                align-items: center;
+                width: 100%;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out;
+                opacity: 0;
+    
+                li {
+                    width: 100%;
+                    text-align: center;
+                    padding: 10px;
+                    margin-left: 0;
+                    border-bottom: 1px solid $gray-light;
+    
+                    &:last-child {
+                        border-bottom: none;
+                    }
+    
+                    a {
+                        display: block;
+                        width: 100%;
+                    }
+                }
+            }
+    
+            // Cuando el menú está activo, se despliega y empuja el contenido
+            &.active {
+                ul {
+                    max-height: 500px; // Ajusta según la cantidad de elementos
+                    opacity: 1;
+                    display: flex;
                 }
             }
         }
     }
+    
 
 // Seccion HERO
     .hero {
