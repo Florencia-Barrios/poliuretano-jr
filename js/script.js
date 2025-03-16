@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Menu toggle desplegable en mobile
+
+    // Inicializar funciones de navegación
+    menuHamburguesita();
+    navegacionFija();
+    scrollNav();
+    gestionarPreguntas();
+    iniciarGaleria();
+});
+
+// Menu toggle desplegable en mobile
+function menuHamburguesita() {
     const menuToggle = document.querySelector(".menu-toggle");
     const nav = document.querySelector("nav");
 
@@ -13,12 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             nav.classList.remove("active");
         });
     });
-
-    // Inicializar funciones de navegación
-    navegacionFija();
-    scrollNav();
-    gestionarPreguntas();
-});
+}
 
 // Header fijo al hacer scroll
 function navegacionFija() {
@@ -26,11 +31,11 @@ function navegacionFija() {
     const seccionHero = document.querySelector(".hero"); // Sección de referencia
     const body = document.body;
 
-    window.addEventListener("scroll", function () { // detectamos el desplazamiento del scroll
-        if (seccionHero.getBoundingClientRect().bottom < 0) { // obtenemos la posicion del bottom de .hero si es menor que 0 ya lo pasamos y agregamos la clase fijo
+    window.addEventListener("scroll", function () {
+        if (seccionHero.getBoundingClientRect().bottom < 0) {
             header.classList.add("fijo");
             body.classList.add("body-scroll");
-        } else { // Si .hero vuelve a ser visible removemos clases
+        } else {
             header.classList.remove("fijo");
             body.classList.remove("body-scroll");
         }
@@ -41,10 +46,10 @@ function navegacionFija() {
 function scrollNav() {
     document.querySelectorAll("nav ul li a").forEach((enlace) => {
         enlace.addEventListener("click", function (e) {
-            if (this.getAttribute("href").startsWith("#")) { // this.getAttribute("href") obtiene el atributo href del enlace. (#)
-                e.preventDefault(); // evita que el navegador realice el salto brusco predeterminado hacia la sección.
+            if (this.getAttribute("href").startsWith("#")) {
+                e.preventDefault();
                 const seccionDestino = document.querySelector(this.getAttribute("href"));
-                if (seccionDestino) { // Si la sección existe, se usa .scrollIntoView({ behavior: "smooth" }) para hacer un scroll suave hasta ella
+                if (seccionDestino) {
                     seccionDestino.scrollIntoView({ behavior: "smooth" });
                 }
             }
@@ -52,13 +57,12 @@ function scrollNav() {
     });
 }
 
-// Gestionar preguntas frecuentes (solo una abierta a la vez y cerrar al hacer clic fuera)
+// Gestionar preguntas frecuentes
 function gestionarPreguntas() {
     const detalles = document.querySelectorAll("#preguntas details");
 
     detalles.forEach((detalle) => {
         detalle.addEventListener("click", function () {
-            // Cierra todos los <details> excepto el actual
             detalles.forEach((otroDetalle) => {
                 if (otroDetalle !== detalle) {
                     otroDetalle.removeAttribute("open");
@@ -67,12 +71,53 @@ function gestionarPreguntas() {
         });
     });
 
-    // Cierra todas las preguntas si el usuario hace clic fuera
     document.addEventListener("click", function (e) {
-        if (!e.target.closest("#preguntas details")) { //verifica si el clic ocurrió dentro de una pregunta <details>.Si el clic NO fue dentro de la pregunta, se cierran todas las preguntas abiertas
+        if (!e.target.closest("#preguntas details")) {
             detalles.forEach((detalle) => {
                 detalle.removeAttribute("open");
             });
         }
+    });
+}
+
+// Lightbox para el grid de miniaturas
+function iniciarGaleria() {
+    const thumbnails = document.querySelectorAll(".thumbnail");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const prevBtn = document.querySelector(".lightbox-prev");
+    const nextBtn = document.querySelector(".lightbox-next");
+    const closeLightbox = document.querySelector(".close");
+    let currentIndex = 0;
+
+    function showImage(index) {
+        if (index < 0) {
+            currentIndex = thumbnails.length - 1;
+        } else if (index >= thumbnails.length) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+        lightboxImg.src = thumbnails[currentIndex].src;
+    }
+
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener("click", () => {
+            lightbox.style.display = "flex";
+            currentIndex = index;
+            showImage(currentIndex);
+        });
+    });
+
+    closeLightbox.addEventListener("click", () => {
+        lightbox.style.display = "none";
+    });
+
+    prevBtn.addEventListener("click", () => {
+        showImage(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener("click", () => {
+        showImage(currentIndex + 1);
     });
 }
