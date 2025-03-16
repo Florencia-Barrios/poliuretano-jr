@@ -125,6 +125,22 @@ header {
 
 }
 
+//Header FIJO
+.header.fijo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: $background-color; /* Ajusta el color según tu diseño */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+// Ajuste para el body cuando el header está fijo
+.body-scroll {
+    padding-top: 80px;
+}
+
 
 
 // Sección HERO
@@ -137,7 +153,7 @@ header {
         url('../img/hero.jpg') no-repeat center center/cover;
     color: $white;
     position: relative;
-    height: 500px;
+    // height: 500px;
 
 
     .content {
@@ -249,7 +265,7 @@ header {
 
 // Sobre nosotros
 .section {
-    padding: 50px 0;
+    padding: 50px 20px;
 
     .container {
         display: flex;
